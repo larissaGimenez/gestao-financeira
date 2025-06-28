@@ -1,20 +1,28 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Rotas Web Públicas
+|--------------------------------------------------------------------------
+|
+| Aqui ficam as rotas que qualquer visitante pode acessar.
+|
+*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+/*
+|--------------------------------------------------------------------------
+| Rotas de Autenticação
+|--------------------------------------------------------------------------
+|
+| Este arquivo, fornecido pelo Breeze, contém todas as rotas necessárias
+| para login, registro, recuperação de senha e verificação de e-mail.
+|
+*/
 require __DIR__.'/auth.php';
