@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Employees\Index as EmployeeIndex;
+use App\Livewire\Roles\Index as RoleIndex;
+use App\Livewire\CharacterTypes\Index as CharacterTypeIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,8 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 
 // Rota de Funcionários
 Route::get('/employees', EmployeeIndex::class)->name('employees.index');
+Route::get('/roles', RoleIndex::class)->name('roles.index');
+Route::get('/character-types', CharacterTypeIndex::class)->name('character-types.index');
 
 // Todas as suas futuras rotas (Roles, Characters, Events...) entrarão aqui.
 // Exemplo:

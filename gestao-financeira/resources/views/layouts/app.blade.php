@@ -16,28 +16,62 @@
     @livewireStyles
 </head>
 <body class="min-h-screen font-sans antialiased">
+    {{-- NAVBAR APENAS PARA MOBILE --}}
+    <x-mary-nav sticky class="lg:hidden">
+        <x-slot:brand>
+            <div class="ml-5 pt-5 font-black text-primary">Flow</div>
+        </x-slot:brand>
+        <x-slot:actions>
+            <label for="main-drawer" class="lg:hidden mr-3">
+                <x-mary-icon name="o-bars-3" class="cursor-pointer" />
+            </label>
+        </x-slot:actions>
+    </x-mary-nav>
+
+    {{-- CONTEÚDO PRINCIPAL --}}
     <x-mary-main full-width>
-        {{-- SIDEBAR --}}
-        <x-slot:sidebar drawer="main-drawer" class="bg-base-200" collapsible>
+
+    {{-- SIDEBAR --}}
+    <x-slot:sidebar drawer="main-drawer" class="bg-base-200" collapsible collapse-text="Fechar menu" open-text="Abrir menu">
+        <div class="flex flex-col h-full">
             {{-- LOGO --}}
             <div class="p-6 text-center font-black text-primary text-2xl">
-                <span>Gestão</span>
+                <span>Flow</span>
             </div>
 
-        {{-- MENU --}}
-        <x-layout.sidebar-itens />
+            {{-- MENU DE ITENS --}}
+            <x-layout.sidebar-itens />
 
-        </x-slot:sidebar>
+            {{-- EMPURRADOR --}}
+            <div class="flex-grow"></div>
+<x-mary-menu-separator />
+            {{-- BLOCO DE LOGOUT (versão corrigida e final) --}}
+            @if($user = auth()->user())
+                
+                <div class="px-2">
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <x-mary-button
+                            label="Sair"
+                            icon="o-power"
+                            type="submit"
+                            class="btn-ghost w-full justify-start"
+                            responsive
+                        />
+                    </form>
+                </div>
+            @endif
+        </div>
+    </x-slot:sidebar>
 
-        {{-- CONTEÚDO PRINCIPAL E NAVBAR --}}
+        {{-- O CONTEÚDO DA PÁGINA EM SI --}}
         <x-slot:content>
-            {{-- NAVBAR --}}
-            <x-layout.navbar />
-
-            {{-- O CONTEÚDO DA PÁGINA EM SI --}}
-            {{ $slot }}
+            <main class="p-4">
+                {{ $slot }}
+            </main>
         </x-slot:content>
     </x-mary-main>
+
     @livewireScripts
 </body>
 </html>
